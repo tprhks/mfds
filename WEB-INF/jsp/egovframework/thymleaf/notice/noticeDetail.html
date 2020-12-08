@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="utf-8" />
+		<title>Thymeleaf 3 example</title>
+        <link rel="stylesheet" media="screen" th:href="@{/css/common.css}"/>
+        <script type="text/javascript">
+        
+        	function fn_update() {
+        		var obj = document.getElementById("updatetFrm");
+        		obj.action = "/thymleaf/insertNoticeEmpty.th";
+        		obj.submit();
+        	}
+        	
+        	function fn_delete() {
+        		var obj = document.getElementById("updatetFrm");
+        		obj.action = "/thymleaf/deleteNotice.th";
+        		obj.submit();
+        	}
+        	
+        </script>
+	</head>
+	<body>
+		<form method="post" id="updatetFrm" name="inputGbn">
+			<input type="hidden" name="regId" value="invako"/>
+			<input type="hidden" id="no" name="no" th:value="${notice.NO}"/>
+			<div class="notice_layout">
+				<div class="notice_array_div">
+					<table class="notice_table">
+						<tr>
+							<td>제목</td>
+							<td>
+								<input class="notice_subject" type="text" disabled="disabled" name="subject" th:value="${notice.SUBJECT}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>내용</td>
+							<td>
+								<textarea class="notice_contents" disabled="disabled" name="contents" th:text="${notice.CONTENTS}"></textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="notice_array_div">
+					<div class="notice_right">
+						<input type="button" class="btn_common" id="btn_update" value="수정" onclick="javascript:fn_update();">
+						<input type="button" class="btn_common" id="btn_delete" value="삭제" onclick="javascript:fn_delete();">
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

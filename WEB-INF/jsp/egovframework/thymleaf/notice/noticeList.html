@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Thymeleaf 3 example</title>
+        <link rel="stylesheet" media="screen" th:href="@{/css/common.css}"/>
+        <script type="text/javascript">
+        	function fn_search() {
+        		var frm = document.getElementById('searchFrm');
+        		frm.action = "/thymleaf/";
+        		frm.submit();
+        	}
+        	
+        	function fn_delete() {
+        		var frm = document.getElementById('searchFrm');
+        		frm.action = "/thymleaf/deleteNotice.th";
+        		frm.submit();
+        	}
+        	
+        	function fn_insert() {
+        		var frm = document.getElementById('searchFrm');
+        		frm.action = "/thymleaf/insertNoticeEmpty.th";
+        		frm.submit();
+        	}
+        	
+        	function fn_onload() {
+        		var objs = document.getElementsByClassName("notice_row");
+            	
+            	for(var i=0; i<objs.length; i++) {
+            		objs[i].onclick = function(e) {
+                		
+                		if(e.target.cellIndex != 0 && e.target.tagName != 'INPUT') {
+                			var num = e.currentTarget.childNodes[1].childNodes[1].value
+                			var frm = document.getElementById('detailFrm');
+                    		document.getElementById("no").value = num;
+                    		frm.action = "/thymleaf/detailNotice.th";
+                    		frm.submit();
+                		}
+                	}
+            	}
+        	}
+        	
+        </script>
+	</head>
+	<body onload="javascript:fn_onload();">
+		<form method="post" id="detailFrm" name="inputGbn">
+			<input type="hidden" name="no" id="no"/>
+		</form>
+		<form method="post" id="searchFrm">
+			<div class="notice_layout">
+				<div class="notice_array_div">
+					<div class="notice_right">
+							<select style="height: 25px;" name="inputGbn">
+								<option th:value="0" th:selected="${inputGbn} == '0'">제목</option>
+								<option th:value="1" th:selected="${inputGbn} == '1'">내용</option>
+								<option th:value="2" th:selected="${inputGbn} == '2'">등록ID</option>
+							</select>
+							<input type="text" style="width:150px; height:20px;" name="inputTx" th:value="${inputTx}">
+							<input type="button" id="search_btn" class="btn_common" value="검색" onclick="javascript:fn_search();">
+						
+					</div>
+				</div>
+				<div class="notice_array_div">
+					<table class="notice_table">
+						<tr>
+							<th style="line-height: 10px;" width="5%"></th>
+							<th width="7%">순번</th>
+							<th width="26%">제목</th>
+							<th width="39%">내용</th>
+							<th width="13%">등록일</th>
+							<th width="10%">등록ID</th>
+						</tr>
+						<tr class="notice_tr notice_row" th:each="notice : ${noticeList}" onclick="'javascript:fn_detail(Event);'">
+							<td >
+								<input type="checkbox" name="no" th:value="${notice.NO}"/>
+							</td>
+							<td th:text=${notice.NUM}></td>
+							<td th:text="${notice.SUBJECT}"></td>
+							<td th:text="${notice.CONTENTS}"></td>
+							<td th:text="${notice.REG_DT}"></td>
+							<td th:text="${notice.REG_ID}"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="notice_array_div">
+					<div class="notice_right">
+						<input type="button" class="btn_common" value="삭제" onclick="javascript:fn_delete();">
+						<input type="button" class="btn_common" value="등록" onclick="javascript:fn_insert();">
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

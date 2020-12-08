@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="utf-8" />
+		<title>Thymeleaf 3 example</title>
+        <link rel="stylesheet" media="screen" th:href="@{/css/common.css}"/>
+        <script type="text/javascript">
+        
+        	function fn_insert() {
+        		
+        		var frm = document.getElementById("insertFrm");
+        		frm.action = "/thymleaf/insertNotice.th";
+        		frm.submit();
+        	}
+        	
+			function fn_update() {
+        		
+        		var frm = document.getElementById("insertFrm");
+        		frm.action = "/thymleaf/updateNotice.th";
+        		frm.submit();
+        	}
+			
+			
+			function fn_load() {
+				var update = document.getElementById("no");
+				if(update.value) {
+					var obj = document.getElementById("btn_update");
+					obj.style.display = "block";
+				} else {
+					var obj = document.getElementById("btn_insert");
+					obj.style.display = "block";
+				}
+			}
+			
+        </script>
+	</head>
+	<body onload="javascript:fn_load();">
+		<form method="post" id="insertFrm" name="inputGbn">
+			<input type="hidden" name="regId" value="invako"/>
+			<input type="hidden" id="no" name="no" th:value="${notice} != null ? ${notice.NO} : ''"/>
+			<div class="notice_layout">
+				<div class="notice_array_div">
+					<table class="notice_table">
+						<tr>
+							<td>제목</td>
+							<td>
+								<input class="notice_subject" type="text" name="subject" th:value="${notice} != null ? ${notice.SUBJECT} : ''"/>
+							</td>
+						</tr>
+						<tr>
+							<td>내용</td>
+							<td>
+								<textarea class="notice_contents" name="contents" th:text="${notice} != null ? ${notice.CONTENTS} : ''"></textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="notice_array_div">
+					<div class="notice_right">
+						<input type="button" style="display:none;" class="btn_common" id="btn_update" value="수정" onclick="javascript:fn_update();">
+						<input type="button" style="display:none;" class="btn_common" id="btn_insert" value="등록" onclick="javascript:fn_insert();">
+					</div>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

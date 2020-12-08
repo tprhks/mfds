@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jeus-web-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus">
+    <context-path>/</context-path>
+    <encoding>
+    	<response-encoding>
+    		<default>UTF-8</default>
+    	</response-encoding>
+    </encoding>
+</jeus-web-dd>
